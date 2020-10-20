@@ -6,7 +6,7 @@ const Constraint = Matter.Constraint;
 var engine, world;
 var box1, pig1,pig3;
 var backgroundImg,platform;
-var bird, slingshot, hour;
+var bird, slingshot, hour_val;
 
 var gameState = "onSling";
 var bg = "sprites/bg1.png";
@@ -14,14 +14,8 @@ var score = 0;
 
 function preload() {
     getBackgroundImg();
-
-    if(hour>=06 && hour<18){
-        bg = "sprites/bg1.png";
-    }
-    else{
-        bg = "sprites/bg2.jpg";
-    }
-
+    console.log("hour " + hour_val)
+    
     backgroundImg = loadImage(bg);
 }
 
@@ -110,12 +104,20 @@ function keyPressed(){
 }
 
 async function getBackgroundImg(){
-    var response = await fetch("http://worldtimeapi.org/api/timezone/Asia/Kolkata");
+    var response = await fetch("https://worldtimeapi.org/api/timezone/Asia/kolkata");
     var responseJSON = await response.json();
 
     var datetime = responseJSON.datetime;
-    hour = datetime.slice(11,13);
-    
+    console.log("Datetime" + datetime)
+    hour_val = datetime.slice(11,13);
+    if(hour_val >=06 && hour_val<18){
+        bg = "sprites/bg1.png";
+    }
+    else{
+        bg = "sprites/bg2.jpg";
+    }
+
+ 
    
     console.log(backgroundImg);
 }
