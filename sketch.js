@@ -6,7 +6,7 @@ const Constraint = Matter.Constraint;
 var engine, world;
 var box1, pig1,pig3;
 var backgroundImg,platform;
-var bird, slingshot;
+var bird, slingshot, hour;
 
 var gameState = "onSling";
 var bg = "sprites/bg1.png";
@@ -14,6 +14,15 @@ var score = 0;
 
 function preload() {
     getBackgroundImg();
+
+    if(hour>=06 && hour<18){
+        bg = "sprites/bg1.png";
+    }
+    else{
+        bg = "sprites/bg2.jpg";
+    }
+
+    backgroundImg = loadImage(bg);
 }
 
 function setup(){
@@ -105,15 +114,8 @@ async function getBackgroundImg(){
     var responseJSON = await response.json();
 
     var datetime = responseJSON.datetime;
-    var hour = datetime.slice(11,13);
+    hour = datetime.slice(11,13);
     
-    if(hour>=06 && hour<18){
-        bg = "sprites/bg1.png";
-    }
-    else{
-        bg = "sprites/bg2.jpg";
-    }
-
-    backgroundImg = loadImage(bg);
+   
     console.log(backgroundImg);
 }
